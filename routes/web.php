@@ -47,7 +47,9 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::resource('question', QuestionController::class);
 
     Route::get('report', ['as' => 'report.index', 'uses' => 'DailyReportController@index']);
-
+    Route::get('report/create', ['as' => 'report.create', 'uses' => 'DailyReportController@create']);
+    Route::post('report/store', ['as' => 'report.store', 'uses' => 'DailyReportController@store']);
+    Route::get('report/{id}', ['as' => 'report.show', 'uses' => 'DailyReportController@show']);
 });
 
 

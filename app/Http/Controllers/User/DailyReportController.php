@@ -4,9 +4,20 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\DailyReport;
+use Auth;
 
 class DailyReportController extends Controller
 {
+
+    private $dailyreport;
+
+    public function __construct(DailyReport $instanceClass)
+    {
+        $this->middleware('auth');
+        $this->dailyreport = $instanceClass;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +25,8 @@ class DailyReportController extends Controller
      */
     public function index()
     {
-        return view('user.daily_report.index');
+        $dailyreports = $this->dailyreport->getByUserId(Auth::id());
+        return view('user.daily_report.index', compact('dailyreports'));
     }
 
     /**
@@ -24,7 +36,7 @@ class DailyReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.daily_report.create');
     }
 
     /**
@@ -35,7 +47,10 @@ class DailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        $this->dailyreport->fill($input)->save();
+        return redirect()->to('report');
     }
 
     /**
@@ -46,7 +61,8 @@ class DailyReportController extends Controller
      */
     public function show($id)
     {
-        //
+        $dailyreport = $this->dailyreport->find($id);
+        return view('user.daily_report.show', compact('dailyreport'));
     }
 
     /**
