@@ -16,6 +16,10 @@ class DailyReport extends Model
         'content'
     ];
 
+    protected $dates = [
+        'reporting_time',
+    ];
+
     public function getByUserId($id)
     {
         return $this->where('user_id', $id)->get();

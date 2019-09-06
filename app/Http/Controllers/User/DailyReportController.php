@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-// use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DailyReport;
 use Auth;
@@ -24,9 +23,11 @@ class DailyReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(DailyReportRequest $request)
     {
-        $dailyreports = $this->dailyreport->getByUserId(Auth::id());
+        $searchMonth = $request->input('search-month');
+        $dailyreports = $this->dailyreport->where('user_id', Auth::id())->where('reporting_time', 'LIKE', "$searchMonth%")->get();
+        // getByUserId(Auth::id());
         return view('user.daily_report.index', compact('dailyreports'));
     }
 
