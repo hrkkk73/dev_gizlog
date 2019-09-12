@@ -20,8 +20,23 @@ class DailyReport extends Model
         'reporting_time',
     ];
 
-    public function getByUserId($id)
+    public function scopeGetByUserId($query, $id)
     {
-        return $this->where('user_id', $id)->get();
+        return $query->where('user_id', $id);
     }
+
+    public function scopeGetBySearchMonth($query, $searchMonth)
+    {
+        return $query->where('reporting_time', 'LIKE', "$searchMonth%");
+    }
+
+    public function getDailyReportList($id, $searchMonth)
+    {
+        return $this->getByUserId($id)
+                    ->getBySearchMonth($searchMonth)
+                    ->get();
+    }
+
+
+
 }
