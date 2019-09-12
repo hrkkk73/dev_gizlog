@@ -21,12 +21,12 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($dailyreports as $dailyreport)
+        @foreach ($dailyReports as $dailyReport)
           <tr class="row">
-            <td class="col-xs-2">{{ $dailyreport->reporting_time->format('m/d/(D)') }}</td>
-            <td class="col-xs-3">{{ $dailyreport->title }}</td>
-            <td class="col-xs-5">{{ $dailyreport->content }}</td>
-            <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $dailyreport->id) }}"><i class="fa fa-book"></i></a></td>
+            <td class="col-xs-2">{{ $dailyReport->reporting_time->format('m/d (D)') }}</td>
+            <td class="col-xs-3">{{ $dailyReport->title }}</td>
+            <td class="col-xs-5">{{ Str::limit($dailyReport->content, 40) }}</td>
+            <td class="col-xs-2"><a class="btn" href="{{ route('report.show', $dailyReport->id) }}"><i class="fa fa-book"></i></a></td>
           </tr>
         @endforeach
       </tbody>
