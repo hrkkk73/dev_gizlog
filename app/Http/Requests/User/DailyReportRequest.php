@@ -15,7 +15,7 @@ class DailyReportRequest extends FormRequest
     {
       return true;
     }
-  
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,17 +26,16 @@ class DailyReportRequest extends FormRequest
         return [
             'search-month' => 'sometimes|required|date',
             'reporting_time' => 'sometimes|required|date',
-            'title' => 'sometimes|required|max:30|string|',
-            'content' => 'sometimes|required|max:1000|string'
+            'title' => 'sometimes|required|string|max:30',
+            'content' => 'sometimes|required|string|max:1000'
         ];
     }
-  
+
     public function messages()
     {
         return [
-            'reporting_time' => '入力必須の項目です。',
-            'title.required' => '入力必須の項目です。',
-            'content.required' => '入力必須の項目です。'
+            'required' => '入力必須の項目です。',
+            'reporting_time.date' => '日付を正しく入力してください。',
         ];
     }
 }
